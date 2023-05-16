@@ -4,6 +4,7 @@
 [Скачиваем zip архив](https://github.com/ivanbrods/dump/archive/refs/heads/main.zip)
 Разархивируем архив
 В архиве запускаем файл (install module.bat) - только при первой установке python 3.xx в дальнейшем этот файл не нужен
+Для использования запускаем файл - start.bat
 # Установка Linux
 ```bash
 sudo apt-get update && upgrade
@@ -21,8 +22,12 @@ git clone https://github.com/ivanbrods/dump
 cd dump
 ```
 ```bash
-pip install --upgrade pip
+pip3 install --upgrade pip3
 ```
-'''bash
-pip install -r requirements.txt
-'''
+```bash
+pip3 install -r requirements.txt
+```
+Все вышеуказаные команды выполняються только 1 раз во время установки, в последующие разы выполнять их не нужно
+```bash
+python3 dump.py
+```
