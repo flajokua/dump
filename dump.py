@@ -144,7 +144,7 @@ class CUI:
         Shows goodbye screen
         """
         self._clear()
-        self._print_center(['Спасибо за использование скрипта :з', '', 'Made with ♥ by hikiko4ern'],
+        self._print_center(['Спасибо за использование скрипта :з', ''],
                            color=['green', None, 'red'], mod=['bold', None, 'bold'], offset=-1)
         if self._ANSI_AVAILABLE:
             print('\x1b[?25h')
