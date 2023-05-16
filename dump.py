@@ -14,7 +14,7 @@ import sentry_sdk
 import vk_api
 
 NAME = 'VK Dump Tool'
-VERSION = '3.0'
+VERSION = '0.9.10'
 API_VERSION = '5.95'
 
 
@@ -144,7 +144,7 @@ class CUI:
         Shows goodbye screen
         """
         self._clear()
-        self._print_center(['Спасибо за использование скрипта '],
+        self._print_center(['Спасибо за использование скрипта :з', '', 'Made with ♥ by hikiko4ern'],
                            color=['green', None, 'red'], mod=['bold', None, 'bold'], offset=-1)
         if self._ANSI_AVAILABLE:
             print('\x1b[?25h')
@@ -261,7 +261,7 @@ class CUI:
         """
         def modules_wp():
             import webbrowser
-            webbrowser.open('https://github.com/ivanbrods/dump/tree/main/modules')
+            webbrowser.open('https://github.com/hikiko4ern/vk_dump/tree/master/modules')
 
         while True:
             dmp._load_modules(True)
@@ -397,7 +397,7 @@ class CUI:
             self._print_center([f'{NAME} [{VERSION}]', '', 'Проверка на наличие обновлений...'],
                                color=['green', None, 'yellow'])
 
-        res = requests.get('https://api.github.com/repos/ivanbrods/dump/releases/latest').json()
+        res = requests.get('https://api.github.com/repos/hikiko4ern/vk_dump/releases/latest').json()
         queue = {}
         if 'tag_name' in res:
             cv = [int(i) for i in VERSION.split('-dev')[0].split('.')]
@@ -437,9 +437,9 @@ class CUI:
                         raise SystemExit
                     else:
                         if kwargs.get('quite'):
-                            print('Не удалось обновить\nСкачайте и замените dump.py вручную\nhttps://github.com/ivanbrods/dump/releases/tag/3.0')
+                            print('Не удалось обновить\nСкачайте и замените dump.py вручную\nhttps://github.com/hikiko4ern/vk_dump/releases/latest')
                         else:
-                            self._print_center(['Не удалось обновить', 'Скачайте и замените dump.py вручную', 'https://github.com/ivanbrods/dump/releases/tag/3.0'],
+                            self._print_center(['Не удалось обновить', 'Скачайте и замените dump.py вручную', 'https://github.com/hikiko4ern/vk_dump/releases/latest'],
                                                color=['red', 'yellow', None], mod=['bold', 'bold', None], offset=-3)
                         raise SystemExit
             else:
