@@ -7,7 +7,7 @@
 Для использования запускаем файл - start.bat
 # Установка Linux
 ```bash
-sudo apt-get update && upgrade
+sudo apt-get update && upgrade --y
 ```
 ```bash
 sudo apt-get install python3 -y
