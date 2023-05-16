@@ -31,3 +31,6 @@ pip3 install -r requirements.txt
 ```bash
 python3 dump.py
 ```
+
+
+## Для скачивания списка друзей из вк используем https://e965.github.io/vk-friends-saver
