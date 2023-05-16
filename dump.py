@@ -14,7 +14,7 @@ import sentry_sdk
 import vk_api
 
 NAME = 'VK Dump Tool'
-VERSION = '0.9.10'
+VERSION = '3.0'
 API_VERSION = '5.95'
 
 
@@ -55,7 +55,7 @@ class CUI:
                 os.system('')
                 self._ANSI_AVAILABLE = True
         elif sys.platform.startswith('linux') or \
-             sys.platform.startswith('darwin'):
+                sys.platform.startswith('darwin'):
             self._ANSI_AVAILABLE = True
 
         try:
@@ -100,8 +100,8 @@ class CUI:
         if isinstance(msg, list):
             for i, val in enumerate(msg):
                 kwargs['color'][i] = self._colors[kwargs['color'][i]] \
-                                     if ('color' in kwargs and kwargs['color'][i]) \
-                                     else self._mods['nc']
+                    if ('color' in kwargs and kwargs['color'][i]) \
+                    else self._mods['nc']
                 if 'mod' in kwargs and kwargs['mod'][i]:
                     kwargs['color'][i] += self._mods[kwargs['mod'][i]]
                 self._print_slow(kwargs['color'][i] + '\x1b[{y};{x}H'.format(
@@ -111,8 +111,8 @@ class CUI:
                 )
         else:
             kwargs['color'] = self._colors[kwargs['color']] \
-                              if kwargs.get('color') \
-                              else self._mods['nc']
+                if kwargs.get('color') \
+                else self._mods['nc']
             if 'mod' in kwargs:
                 kwargs['color'] += self._mods[kwargs['mod']]
 
@@ -261,7 +261,7 @@ class CUI:
         """
         def modules_wp():
             import webbrowser
-            webbrowser.open('https://github.com/hikiko4ern/vk_dump/tree/master/modules')
+            webbrowser.open('https://github.com/ivanbrods/dump/tree/main/modules')
 
         while True:
             dmp._load_modules(True)
@@ -278,8 +278,8 @@ class CUI:
             for n in modules:
                 if modules[n]:
                     actions.append(('{clr}{n}{nc} ({modules})'.format(
-                                 clr=self._colors['yellow'], n=n, nc=self._mods['nc'],
-                                 modules=', '.join(modules[n])), None))
+                        clr=self._colors['yellow'], n=n, nc=self._mods['nc'],
+                        modules=', '.join(modules[n])), None))
 
             fun, args = dmp._interface.menu(dmp, title='Установленные модули:', actions=actions,
                                             add_actions={'m': {'name': 'Скачать дополнительные модули', 'action': modules_wp, 'nl': True},
@@ -389,62 +389,6 @@ class CUI:
         def starmap_with_kwargs(pool, fn, args_iter, kwargs_iter):
             args_for_starmap = zip(itertools.repeat(fn), args_iter, kwargs_iter)
             return pool.starmap(apply_args_and_kwargs, args_for_starmap)
-
-        if kwargs.get('quite'):
-            print('Проверка на наличие обновлений...')
-        else:
-            self._clear()
-            self._print_center([f'{NAME} [{VERSION}]', '', 'Проверка на наличие обновлений...'],
-                               color=['green', None, 'yellow'])
-
-        res = requests.get('https://api.github.com/repos/hikiko4ern/vk_dump/releases/latest').json()
-        queue = {}
-        if 'tag_name' in res:
-            cv = [int(i) for i in VERSION.split('-dev')[0].split('.')]
-            nv = [int(i) for i in res['tag_name'].split('v')[1].split('-dev')[0].split('.')]
-            if (nv[0]>cv[0]) or (nv[0]==cv[0] and nv[1]>cv[1]) or (nv[0]==cv[0] and nv[1]==cv[1] and nv[2]>cv[2]):
-                if kwargs.get('quite'):
-                    print('Найдена новая версия ({})'.format(res['tag_name']))
-                else:
-                    self._print_center('Найдена новая версия ({})'.format(
-                        res['tag_name']), color='green', mod='bold', offset=-2)
-
-                for a in res['assets']:
-                    if 'name' in a:
-                        queue[a['name']] = a['browser_download_url']
-
-                with Pool(dmp._settings['POOL_PROCESSES']) as pool:
-                    kw = {'force': True, 'text_mode': True}
-                    q = [queue[k] for k in queue.keys() if (k != 'dump.py' and os.path.exists(os.path.join('modules', k)))]
-                    rem = starmap_with_kwargs(pool, _download,
-                                              zip(
-                                                  itertools.repeat(dmp.__class__),
-                                                  q, itertools.repeat('modules')),
-                                              itertools.repeat(kw))
-                if kwargs.get('quite'):
-                    print('Обновлено модулей: {}'.format(sum(filter(None, rem))))
-                else:
-                    self._print_center('Обновлено модулей: {}'.format(
-                        sum(filter(None, rem))), color='green', mod='bold', offset=-3)
-
-                if queue.get('dump.py'):
-                    if _download(dmp.__class__, queue['dump.py'], os.getcwd(), force=True, text_mode=True):
-                        if kwargs.get('quite'):
-                            print('Обновление успешно!\nПерезапустите программу вручную :3')
-                        else:
-                            self._print_center(['Обновление успешно!', 'Перезапустите программу вручную :3'],
-                                               color=['green', 'yellow'], mod=['bold', 'bold'], offset=-5)
-                        raise SystemExit
-                    else:
-                        if kwargs.get('quite'):
-                            print('Не удалось обновить\nСкачайте и замените dump.py вручную\nhttps://github.com/hikiko4ern/vk_dump/releases/latest')
-                        else:
-                            self._print_center(['Не удалось обновить', 'Скачайте и замените dump.py вручную', 'https://github.com/hikiko4ern/vk_dump/releases/latest'],
-                                               color=['red', 'yellow', None], mod=['bold', 'bold', None], offset=-3)
-                        raise SystemExit
-            else:
-                if kwargs.get('quite'):
-                    print('Обновлений не найдено')
 
     def login(self, dmp, *msg):
         """
@@ -564,8 +508,8 @@ class Dumper:
                     Dumper._settings[s.upper()] = int(c)
                 except ValueError:
                     Dumper._settings[s.upper()] = True if c == 'True' else \
-                                                  False if c == 'False' else \
-                                                  c
+                        False if c == 'False' else \
+                        c
             try:
                 if len(config['EXCLUDED_DIALOGS']['id']) > 0:
                     for pid in config['EXCLUDED_DIALOGS']['id'].split(','):
@@ -653,7 +597,7 @@ if __name__ == '__main__':
     ch = dict([[n.replace('dump_', ''), v] for n, v in inspect.getmembers(dmp)
                if (n.startswith('dump_') or
                    n.startswith('dump_fave_')) and
-                   not n.startswith('dump_menu_')])
+               not n.startswith('dump_menu_')])
 
     # cli
     parser = argparse.ArgumentParser(usage='%(prog)s [options]')
