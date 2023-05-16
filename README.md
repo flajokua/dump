@@ -33,4 +33,5 @@ python3 dump.py
 ```
 
 
-## Для скачивания списка друзей из вк используем https://e965.github.io/vk-friends-saver
+## Для скачивания списка друзей из вк используем: 
+https://e965.github.io/vk-friends-saver
