@@ -432,7 +432,7 @@ class CUI:
                     print(self._mods['nc'], end='')
 
                 vk_session = vk_api.VkApi(login, password,
-                                          app_id=2685278,
+                                          app_id=6287487,
                                           api_version=API_VERSION,
                                           scope=2+4+8+16+4096+65536+131072,
                                           auth_handler=auth_handler,
