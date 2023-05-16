@@ -16,7 +16,7 @@ sudo apt-get install python3 -y
 sudo apt-get install git
 ```
 ```bash
-git clone https://github.com/ivanbrods/dump
+git clone https://github.com/flajokua/dump
 ```
 ```bash
 cd dump
